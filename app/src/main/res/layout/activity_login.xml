@@ -62,53 +62,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etLoginEmail" />
 
-    <LinearLayout
-        android:id="@+id/lLSwLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/background_caixa_de_texto"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLoginSenha">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:text="Motorista"
-            android:textStyle="bold" />
-
-        <Switch
-            android:id="@+id/swLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:text="Cliente"
-            android:textStyle="bold" />
-    </LinearLayout>
 
     <Button
-        android:id="@+id/btLogin"
+        android:id="@+id/btLoginLogar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/background_bt_az_escuro"
@@ -125,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lLSwLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/etLoginSenha" />
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
@@ -137,7 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

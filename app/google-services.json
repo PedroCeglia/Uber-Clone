@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "220360299340",
+    "firebase_url": "https://gold-box-311912-default-rtdb.firebaseio.com",
+    "project_id": "gold-box-311912",
+    "storage_bucket": "gold-box-311912.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220360299340:android:8cdf77c9a86f78cab7b5e9",
+        "android_client_info": {
+          "package_name": "com.pedro.ceglia.curso.uber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220360299340-1n4ttg34l7s9uncimdtecakfnkn9pvjb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pedro.ceglia.curso.uber",
+            "certificate_hash": "ef9771e70abb6bcc829c68979f2df8e6f55aeb20"
+          }
+        },
+        {
+          "client_id": "220360299340-lbutflusde1cmiiesd4dvdu29kfbv5h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKCbmCvRelm4Qx_LpYtvFLQwVORPjw2ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220360299340-lbutflusde1cmiiesd4dvdu29kfbv5h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220360299340:android:9acc44b9f57c999bb7b5e9",
+        "android_client_info": {
+          "package_name": "com.pedro.ceglia.uber.clone.curso.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220360299340-ji9pfhcgmv3ghcbsid5fsr86ddc546e7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pedro.ceglia.uber.clone.curso.android",
+            "certificate_hash": "ef9771e70abb6bcc829c68979f2df8e6f55aeb20"
+          }
+        },
+        {
+          "client_id": "220360299340-lbutflusde1cmiiesd4dvdu29kfbv5h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKCbmCvRelm4Qx_LpYtvFLQwVORPjw2ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220360299340-lbutflusde1cmiiesd4dvdu29kfbv5h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220360299340:android:630cb0d0538422ffb7b5e9",
+        "android_client_info": {
+          "package_name": "com.pedro.ceglia.uber.clone.curso.ubermotorista"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220360299340-ecpnb7kvbnm4mfnb986nl9jog4h5c72l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pedro.ceglia.uber.clone.curso.ubermotorista",
+            "certificate_hash": "ef9771e70abb6bcc829c68979f2df8e6f55aeb20"
+          }
+        },
+        {
+          "client_id": "220360299340-lbutflusde1cmiiesd4dvdu29kfbv5h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKCbmCvRelm4Qx_LpYtvFLQwVORPjw2ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220360299340-lbutflusde1cmiiesd4dvdu29kfbv5h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
