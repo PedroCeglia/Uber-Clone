@@ -1,6 +1,5 @@
-package com.pedro.ceglia.curso.uber;
+package com.pedro.ceglia.curso.uber.activity.logincadastro;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -14,13 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.pedro.ceglia.curso.uber.R;
 import com.pedro.ceglia.curso.uber.config.ConfiguracoesFirebase;
 import com.pedro.ceglia.curso.uber.helper.UsuarioFirebase;
 import com.pedro.ceglia.curso.uber.model.Usuario;

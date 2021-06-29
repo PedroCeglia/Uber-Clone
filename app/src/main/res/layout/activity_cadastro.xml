@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cinza_dark"
-    tools:context=".CadastroActivity">
+    tools:context=".activity.logincadastro.CadastroActivity">
 
     <include
         android:id="@+id/include"

@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=EF:97:71:E7:0A:BB:6B:CC:82:9C:68:97:9F:2D:F8:E6:F5:5A:EB:20%3Bcom.pedro.ceglia.curso.uber.activity.telasmain
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.pedro.ceglia.curso.uber.activity.telasmain
+
+    SHA-1 certificate fingerprint:
+    EF:97:71:E7:0A:BB:6B:CC:82:9C:68:97:9F:2D:F8:E6:F5:5A:EB:20
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBgKbKp2VgQdCV4DGAS9GeihzeKrzBnMr4</string>
+</resources>

@@ -1,18 +1,20 @@
-package com.pedro.ceglia.curso.uber;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.pedro.ceglia.curso.uber.activity.logincadastro;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.pedro.ceglia.curso.uber.R;
+import com.pedro.ceglia.curso.uber.activity.telasmain.MainActivityCliente;
+import com.pedro.ceglia.curso.uber.activity.telasmain.MainActivityMotorista;
 import com.pedro.ceglia.curso.uber.config.ConfiguracoesFirebase;
 import com.pedro.ceglia.curso.uber.model.Usuario;
 
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         verificandoSeAUsuarioLogado();
     }
 
@@ -70,11 +71,15 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Usuario usuario = snapshot.getValue(Usuario.class);
                 if (usuario != null){
+                    Intent i;
                     if (usuario.getTipo().equals("M")){
                         // Abrir Activity para Motorista
+                        i = new Intent(MainActivity.this, MainActivityMotorista.class);
                     } else {
                         // Abrir Activity  para Cliente
+                        i = new Intent(MainActivity.this, MainActivityCliente.class);
                     }
+                    startActivity(i);
                 }
 
             }

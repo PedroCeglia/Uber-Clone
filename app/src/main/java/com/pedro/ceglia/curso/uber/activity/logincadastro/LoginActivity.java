@@ -1,4 +1,4 @@
-package com.pedro.ceglia.curso.uber;
+package com.pedro.ceglia.curso.uber.activity.logincadastro;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.pedro.ceglia.curso.uber.R;
 import com.pedro.ceglia.curso.uber.config.ConfiguracoesFirebase;
 
 public class LoginActivity extends AppCompatActivity {

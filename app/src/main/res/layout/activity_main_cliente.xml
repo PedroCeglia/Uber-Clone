@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.telasmain.MainActivityCliente">
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/toolbar_principal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3"
+        tools:context=".activity.telasmain.MapsActivityMainCliente" >
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEdits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <EditText
+            android:id="@+id/etMeuLocal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/circulo_verde"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Meu local"
+            android:inputType="textPersonName"
+            android:textColor="@color/cinza_dark"
+            android:textColorHint="@color/cinza_dark" />
+
+        <EditText
+            android:id="@+id/etDestino"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/circulo_verde"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/cinza_dark"
+            android:ems="10"
+            android:hint="Digite Seu Destino"
+            android:inputType="textPersonName"
+            android:textColor="@color/cinza_dark"
+            android:textColorHint="@color/cinza_dark"
+            android:drawableStart="@drawable/circulo_verde"
+            android:autofillHints="" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btChamarUber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="10dp"
+        android:text="Chamar o Uber"
+        android:theme="@style/botaoPadrao"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

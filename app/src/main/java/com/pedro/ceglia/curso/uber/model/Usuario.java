@@ -26,6 +26,7 @@ public class Usuario {
             usuariosRef = database.child("usuarios_clientes").child(getId());
         }
         usuariosRef.setValue(this);
+        usuariosRef2.setValue(this);
 
     }
 
