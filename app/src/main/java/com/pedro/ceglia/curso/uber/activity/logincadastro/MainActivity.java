@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedro.ceglia.curso.uber.R;
 import com.pedro.ceglia.curso.uber.activity.telasmain.MainActivityCliente;
 import com.pedro.ceglia.curso.uber.activity.telasmain.MainActivityMotorista;
+import com.pedro.ceglia.curso.uber.activity.telasmain.RequisicoesActivity;
 import com.pedro.ceglia.curso.uber.config.ConfiguracoesFirebase;
 import com.pedro.ceglia.curso.uber.model.Usuario;
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent i;
                     if (usuario.getTipo().equals("M")){
                         // Abrir Activity para Motorista
-                        i = new Intent(MainActivity.this, MainActivityMotorista.class);
+                        i = new Intent(MainActivity.this, RequisicoesActivity.class);
                     } else {
                         // Abrir Activity  para Cliente
                         i = new Intent(MainActivity.this, MainActivityCliente.class);

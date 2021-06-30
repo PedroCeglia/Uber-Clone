@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Uber">
-        <activity android:name=".activity.telasmain.MainActivityCliente"></activity>
+        <activity android:name=".activity.telasmain.RequisicoesActivity"></activity>
+        <activity android:name=".activity.telasmain.MainActivityCliente" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

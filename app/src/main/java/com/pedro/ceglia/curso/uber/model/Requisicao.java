@@ -3,10 +3,11 @@ package com.pedro.ceglia.curso.uber.model;
 import com.google.firebase.database.DatabaseReference;
 import com.pedro.ceglia.curso.uber.config.ConfiguracoesFirebase;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Requisicao {
+public class Requisicao implements Serializable {
 
     private Destino destino;
     private String idRequisicao;
@@ -60,6 +61,19 @@ public class Requisicao {
         requisicaoRef.updateChildren(objeto);
     }
 
+    public void atualizarMotoristaLocalizacao(Usuario motorista){
+        DatabaseReference reference = ConfiguracoesFirebase.getDatabaseReference();
+        DatabaseReference requisicoesRef = reference.child("requisicoes");
+        DatabaseReference requisicaoRef = requisicoesRef
+                .child(getIdRequisicao())
+                .child("motorista");
+
+        Map objeto = new HashMap();
+        objeto.put("latitude", motorista.getLatitude());
+        objeto.put("longitude", motorista.getLongitude());
+
+        requisicaoRef.updateChildren(objeto);
+    }
 
     public Destino getDestino() {
         return destino;

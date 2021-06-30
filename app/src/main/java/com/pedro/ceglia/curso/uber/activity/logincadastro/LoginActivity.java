@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String senha = etSenha.getText().toString();
 
-        if (email.isEmpty()){
-            if (senha.isEmpty()){
+        if (!email.isEmpty()){
+            if (!senha.isEmpty()){
 
                 escondendoWidgets();
                 logarConta(email, senha);

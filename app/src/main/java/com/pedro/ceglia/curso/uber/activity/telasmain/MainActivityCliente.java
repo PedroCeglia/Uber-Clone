@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -19,6 +20,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,6 +79,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
     private DatabaseReference requisicoesRef;
     private ValueEventListener valueEventListenerRequisicoes;
     private Usuario usuarioLogado;
+    private Query query;
 
     // Widgets
     private EditText etLocalCliente, etLocalDestino;
@@ -112,6 +115,12 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
     protected void onStart() {
         super.onStart();
         verificaStatusRequisicao();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        query.removeEventListener(valueEventListenerRequisicoes);
     }
 
     private void configuracoesIniciais(){
@@ -216,10 +225,10 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
                                     StringBuilder mensagem = new StringBuilder();
 
                                     mensagem.append("Cidade : ").append(destino2.getCidade());
-                                    mensagem.append("Bairro : ").append(destino2.getBairro());
-                                    mensagem.append("CEP : ").append(destino2.getCep());
-                                    mensagem.append("Rua : ").append(destino2.getRua());
-                                    mensagem.append("Numero : ").append(destino2.getNumero());
+                                    mensagem.append("\nBairro : ").append(destino2.getBairro());
+                                    mensagem.append("\nCEP : ").append(destino2.getCep());
+                                    mensagem.append("\nRua : ").append(destino2.getRua());
+                                    mensagem.append("\nNumero : ").append(destino2.getNumero());
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivityCliente.this);
                                     builder.setTitle("Confirme seu endereço Inicial!");
@@ -227,47 +236,57 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
                                     builder.setPositiveButton("Confirmar", (dialog, which) -> {
                                         // Salvar Requisição
                                         confirmadoEndInicial = true;
-                                        uberChamado = true;
+                                        Log.i("mensagem", "Confirmação 1");
+
+
+                                        Destino destinoFinal = new Destino();
+                                        destinoFinal.setCidade(addressDestinoFinal.getAdminArea());
+                                        destinoFinal.setBairro(addressDestinoFinal.getSubLocality());
+                                        destinoFinal.setCep(addressDestinoFinal.getPostalCode());
+                                        destinoFinal.setRua(addressDestinoFinal.getThoroughfare());
+                                        destinoFinal.setNumero(addressDestinoFinal.getFeatureName());
+                                        destinoFinal.setLatitude(addressDestinoFinal.getLatitude());
+                                        destinoFinal.setLongitude(addressDestinoFinal.getLongitude());
+
+                                        StringBuilder mensagem2 = new StringBuilder();
+
+                                        mensagem2.append("Cidade : ").append(destinoFinal.getCidade());
+                                        mensagem2.append("\nBairro : ").append(destinoFinal.getBairro());
+                                        mensagem2.append("\nCEP : ").append(destinoFinal.getCep());
+                                        mensagem2.append("\nRua : ").append(destinoFinal.getRua());
+                                        mensagem2.append("\nNumero : ").append(destinoFinal.getNumero());
+
+                                        AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivityCliente.this);
+                                        builder2.setTitle("Confirme seu Destino!");
+                                        builder2.setMessage(mensagem2);
+                                        builder2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                // Salvar Requisição
+                                                salvandoRequisicao(destinoFinal, destino2);
+                                                uberChamado = true;
+                                                Log.i("mensagem", "Confirmação 2");
+
+                                            }
+                                        });
+
+                                        builder2.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                        AlertDialog alertDialog2 = builder2.create();
+                                        alertDialog2.show();
+
                                     });
+
                                     builder.setNegativeButton("Cancelar", (dialog, which) -> {
 
                                     });
                                     AlertDialog alertDialog = builder.create();
                                     alertDialog.show();
-
-                                    Destino destinoFinal = new Destino();
-                                    destinoFinal.setCidade(addressDestinoFinal.getAdminArea());
-                                    destinoFinal.setBairro(addressDestinoFinal.getSubLocality());
-                                    destinoFinal.setCep(addressDestinoFinal.getPostalCode());
-                                    destinoFinal.setRua(addressDestinoFinal.getThoroughfare());
-                                    destinoFinal.setNumero(addressDestinoFinal.getFeatureName());
-                                    destinoFinal.setLatitude(addressDestinoFinal.getLatitude());
-                                    destinoFinal.setLongitude(addressDestinoFinal.getLongitude());
-
-                                    StringBuilder mensagem2 = new StringBuilder();
-
-                                    mensagem2.append("Cidade : ").append(destinoFinal.getCidade());
-                                    mensagem2.append("Bairro : ").append(destinoFinal.getBairro());
-                                    mensagem2.append("CEP : ").append(destinoFinal.getCep());
-                                    mensagem2.append("Rua : ").append(destinoFinal.getRua());
-                                    mensagem2.append("Numero : ").append(destinoFinal.getNumero());
-
-                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivityCliente.this);
-                                    builder2.setTitle("Confirme seu Destino!");
-                                    builder2.setMessage(mensagem);
-                                    builder2.setPositiveButton("Confirmar", (dialog, which) -> {
-                                        if (confirmadoEndInicial){
-                                            // Salvar Requisição
-                                            salvandoRequisicao(destinoFinal, destino2);
-                                            uberChamado = true;
-                                        }
-                                        criandoToast("Endereço Inicial não confirmado! \n Repita o pedido...");
-                                    });
-                                    builder.setNegativeButton("Cancelar", (dialog, which) -> {
-
-                                    });
-                                    AlertDialog alertDialog2 = builder.create();
-                                    alertDialog2.show();
                                 } else {
                                     criandoToast("Não foi possivel localizar o Endereço do Destino");
                                 }
@@ -323,7 +342,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
 
     private void verificaStatusRequisicao(){
 
-        Query query = requisicoesRef.orderByChild("passageiro/id")
+        query = requisicoesRef.orderByChild("passageiro/id")
                 .equalTo(usuarioLogado.getId());
         valueEventListenerRequisicoes = query.addValueEventListener(new ValueEventListener() {
             @Override
