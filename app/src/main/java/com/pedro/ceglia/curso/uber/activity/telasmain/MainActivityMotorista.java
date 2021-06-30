@@ -93,10 +93,11 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
         configuracoesIniciais();
         configurandoToolbar();
         recuperandoBundles();
-        verificaStatusDaRequisicao();
+
         // onClick
         aceitarCorrida();
         onClickFab();
+        verificaStatusDaRequisicao();
     }
 
     private void configuracoesIniciais(){
@@ -257,8 +258,10 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
         btAcessarCorrida.setText("Aceitar Corrida");
         fab.setVisibility(View.VISIBLE);
 
-        adicionandoMarcadorDoDestino(localizacaoDestino, "Destino");
         adicionandoMarcadorDoPassageiro(localizacaoPassageiro, requisicao.getPassageiro().getNome());
+
+        adicionandoMarcadorDoDestino(localizacaoDestino, "Destino");
+
 
         centralizandoMarcadores(localizacaoDestino, localizacaoPassageiro);
 
@@ -455,21 +458,25 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
     }
 
     private void centralizandoMarcadores(LatLng marker1, LatLng marker2){
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(marker1);
-        builder.include(marker2);
 
-        LatLngBounds bounds = builder.build();
+        if (mMap != null){
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            builder.include(marker1);
+            builder.include(marker2);
 
-        // Recuperando Largura do Dispositivo
-        int largura = getResources().getDisplayMetrics().widthPixels;
-        int altura = getResources().getDisplayMetrics().heightPixels;
-        int espacamentoInterno = (int) (largura * 0.20);
+            LatLngBounds bounds = builder.build();
 
-        mMap.moveCamera(
-                CameraUpdateFactory.newLatLngBounds(bounds,
-                        largura, altura, espacamentoInterno
-                ));
+            // Recuperando Largura do Dispositivo
+            int largura = getResources().getDisplayMetrics().widthPixels;
+            int altura = getResources().getDisplayMetrics().heightPixels;
+            int espacamentoInterno = (int) (largura * 0.20);
+
+            mMap.moveCamera(
+                    CameraUpdateFactory.newLatLngBounds(bounds,
+                            largura, altura, espacamentoInterno
+                    ));
+        }
+
     }
 
     private void adicionandoMarcadorDoMotorista(LatLng localizacao, String nome){
@@ -486,31 +493,35 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
     }
 
     private void adicionandoMarcadorDoPassageiro(LatLng localizacao, String nome){
+        if (mMap != null) {
+            if (passageiroMarker != null)
+                passageiroMarker.remove();
 
-        if (passageiroMarker != null)
-            passageiroMarker.remove();
-
-        passageiroMarker = mMap.addMarker(new MarkerOptions()
-                .position(localizacao)
-                .title(nome)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.usuario)
-                ));
+            passageiroMarker = mMap.addMarker(new MarkerOptions()
+                    .position(localizacao)
+                    .title(nome)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.usuario)
+                    ));
+        }
 
     }
 
     private void adicionandoMarcadorDoDestino(LatLng localizacao, String nome){
+        if (mMap != null) {
+            if (passageiroMarker != null)
+                passageiroMarker.remove();
 
-        if (passageiroMarker != null)
-            passageiroMarker.remove();
+            if (destinoMarker != null)
+                destinoMarker.remove();
 
-        if (destinoMarker != null)
-            destinoMarker.remove();
-
-        destinoMarker = mMap.addMarker(new MarkerOptions()
-                .position(localizacao)
-                .title(nome)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.destino)
-                ));
+            if (localizacao != null) {
+                destinoMarker = mMap.addMarker(new MarkerOptions()
+                        .position(localizacao)
+                        .title(nome)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.destino)
+                        ));
+            }
+        }
 
     }
 
@@ -519,7 +530,7 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
             @Override
             public void onClick(View v) {
                 String status = requisicao.getStatus();
-                if (!status.isEmpty() && status != null ){
+                if (!status.isEmpty()){
 
                     String latFab = "";
                     String lngFab = "";

@@ -1,10 +1,14 @@
 package com.pedro.ceglia.curso.uber.activity.logincadastro;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,15 +18,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.pedro.ceglia.curso.uber.R;
 import com.pedro.ceglia.curso.uber.activity.telasmain.MainActivityCliente;
-import com.pedro.ceglia.curso.uber.activity.telasmain.MainActivityMotorista;
 import com.pedro.ceglia.curso.uber.activity.telasmain.RequisicoesActivity;
 import com.pedro.ceglia.curso.uber.config.ConfiguracoesFirebase;
+import com.pedro.ceglia.curso.uber.helper.Permissao;
 import com.pedro.ceglia.curso.uber.model.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference database;
+    private final String[] permissoes = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         configuracoesIniciais();
+        Permissao.validarPermissoes(permissoes, this, 1);
     }
 
     @Override
@@ -93,5 +101,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        for (int permissaoResultado : grantResults){
+            if (permissaoResultado == PackageManager.PERMISSION_DENIED){
+                alertaValiadacaoPermissao();
+            }
+        }
+    }
+
+    private void alertaValiadacaoPermissao(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Permissões Negadas");
+        builder.setMessage("Para utilizar o app é necessario aceitar as permissões");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+    }
 
 }
