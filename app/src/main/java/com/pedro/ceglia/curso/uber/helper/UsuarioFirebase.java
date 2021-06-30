@@ -8,6 +8,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,9 +103,9 @@ public class UsuarioFirebase {
         return usuario;
     }
 
-    /*public static void atualizarDadosLocalizacao(LatLng latLng, Context c){
+    public static void atualizarDadosLocalizacao(LatLng latLng, Context c){
         // Definindo nó de local de usuario
-        DatabaseReference localUsuario = ConfiguracaoFirebase.getFirebaseDatabase()
+        DatabaseReference localUsuario = ConfiguracoesFirebase.getDatabaseReference()
                 .child("local_usuario");
         GeoFire geoFire = new GeoFire(localUsuario);
         geoFire.setLocation(
@@ -121,7 +124,7 @@ public class UsuarioFirebase {
                 }
         );
     }
-     */
+
 }
 
 
