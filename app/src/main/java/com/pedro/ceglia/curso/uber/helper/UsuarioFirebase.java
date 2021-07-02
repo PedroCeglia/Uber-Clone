@@ -99,6 +99,7 @@ public class UsuarioFirebase {
         Usuario usuario = new Usuario();
         usuario.setEmail( firebaseUser.getEmail() );
         usuario.setId(firebaseUser.getUid());
+        usuario.setNome(firebaseUser.getDisplayName());
 
         return usuario;
     }

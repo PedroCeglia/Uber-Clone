@@ -74,6 +74,15 @@ public class Requisicao implements Serializable {
 
         requisicaoRef.updateChildren(objeto);
     }
+    public void salvarMotorista(Usuario motorista){
+        DatabaseReference reference = ConfiguracoesFirebase.getDatabaseReference();
+        DatabaseReference requisicoesRef = reference.child("requisicoes");
+        requisicoesRef
+                .child(getIdRequisicao())
+                .child("motorista").setValue(motorista);
+
+
+    }
 
     public Destino getDestino() {
         return destino;

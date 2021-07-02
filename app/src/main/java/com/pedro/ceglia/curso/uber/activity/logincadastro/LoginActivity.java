@@ -120,8 +120,8 @@ public class LoginActivity extends AppCompatActivity {
         btlogar.setVisibility(View.VISIBLE);
     }
 
-    @SuppressLint("ShowToast")
+
     private void criandoToast(String mensagem){
-        Toast.makeText(LoginActivity.this, mensagem, Toast.LENGTH_SHORT);
+        Toast.makeText(LoginActivity.this, mensagem, Toast.LENGTH_SHORT).show();
     }
 }

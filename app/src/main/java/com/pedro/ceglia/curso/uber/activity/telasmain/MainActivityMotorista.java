@@ -94,9 +94,18 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
         configurandoToolbar();
         recuperandoBundles();
 
+
         // onClick
         aceitarCorrida();
         onClickFab();
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        permitindoMudancanoMapa = true;
+        recuperarLocalizacaoUsuario();
         verificaStatusDaRequisicao();
     }
 
@@ -152,12 +161,7 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
             }
         }
     }
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
-        permitindoMudancanoMapa = true;
-        recuperarLocalizacaoUsuario();
-    }
+
 
     private void recuperarLocalizacaoUsuario(){
 
@@ -172,6 +176,7 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
                     // recuperar Latitude Longitude
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
+                    motorista = UsuarioFirebase.getDadosUsuarioLogadoAuth();
                     motorista.setLongitude(String.valueOf(longitude));
                     motorista.setLatitude(String.valueOf(latitude));
                     localizacaoAtual = new LatLng(latitude, longitude);
@@ -187,6 +192,12 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
                         centralizandoMarcadores(localizacaoAtual, localizacaoPassageiro);
                         permitindoMudancanoMapa = false;
                     }
+                    /*if (requisicao.getStatus().equals(Requisicao.STATUS_A_CAMINHO)){
+                        centralizandoMarcadores(localizacaoAtual, localizacaoPassageiro);
+                    }
+
+                     */
+
 
                 }
             }
@@ -209,6 +220,7 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
                 localizacaoMotorista = new LatLng(
                         Double.parseDouble(motorista.getLatitude()),
                         Double.parseDouble(motorista.getLongitude()));
+                requisicao.salvarMotorista(motorista);
                 requisicao.setStatus(Requisicao.STATUS_A_CAMINHO);
                 requisicao.atualizarStatus();
                 btAcessarCorrida.setOnClickListener(null);
@@ -258,10 +270,9 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
         btAcessarCorrida.setText("Aceitar Corrida");
         fab.setVisibility(View.VISIBLE);
 
-        adicionandoMarcadorDoPassageiro(localizacaoPassageiro, requisicao.getPassageiro().getNome());
 
         adicionandoMarcadorDoDestino(localizacaoDestino, "Destino");
-
+        adicionandoMarcadorDoPassageiro(localizacaoPassageiro, requisicao.getPassageiro().getNome());
 
         centralizandoMarcadores(localizacaoDestino, localizacaoPassageiro);
 
@@ -272,6 +283,9 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
 
         btAcessarCorrida.setText("A Caminho Do Passageiro");
         fab.setVisibility(View.VISIBLE);
+
+        if (destinoMarker!= null)
+        destinoMarker.remove();
 
         adicionandoMarcadorDoMotorista(localizacaoMotorista, motorista.getNome());
         adicionandoMarcadorDoPassageiro(localizacaoPassageiro, requisicao.getPassageiro().getNome());

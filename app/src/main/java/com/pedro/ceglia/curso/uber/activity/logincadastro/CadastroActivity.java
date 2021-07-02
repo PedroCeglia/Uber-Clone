@@ -163,11 +163,10 @@ public class CadastroActivity extends AppCompatActivity {
         btCadastrar.setVisibility(View.VISIBLE);
     }
 
-    @SuppressLint("ShowToast")
     private void criandoToast(String mensagem){
         Toast.makeText(CadastroActivity.this,
                 mensagem,
-                Toast.LENGTH_SHORT);
+                Toast.LENGTH_SHORT).show();
     }
 
 }

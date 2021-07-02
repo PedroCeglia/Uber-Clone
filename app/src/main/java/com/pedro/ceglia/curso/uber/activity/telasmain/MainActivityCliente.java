@@ -296,6 +296,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
                         } else {
                             criandoToast("Digite algum Endereço Inicial!");
                         }
+                    } else {
                         criandoToast("Digite algum Endereço de Destino !");
                     }
 
@@ -549,10 +550,10 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressLint("ShowToast")
+
     private void criandoToast(String mensagem){
         Toast.makeText(MainActivityCliente.this,
                 mensagem,
-                Toast.LENGTH_SHORT);
+                Toast.LENGTH_SHORT).show();
     }
 }

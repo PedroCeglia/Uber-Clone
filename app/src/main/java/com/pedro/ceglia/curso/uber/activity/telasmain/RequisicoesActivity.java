@@ -167,7 +167,7 @@ public class RequisicoesActivity extends AppCompatActivity {
                     UsuarioFirebase.atualizarDadosLocalizacao(localizacaoAtual, RequisicoesActivity.this);
                     locationManager.removeUpdates(locationListener);
                     adapter.notifyDataSetChanged();
-                    criandoToast("Localização Recuperada");
+                    criandoToast();
                 }
             }
         };
@@ -248,8 +248,8 @@ public class RequisicoesActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void criandoToast(String texto){
-        Toast.makeText(this,texto,Toast.LENGTH_SHORT).show();
+    private void criandoToast(){
+        Toast.makeText(this, "Localização Recuperada",Toast.LENGTH_SHORT).show();
     }
 
 }
