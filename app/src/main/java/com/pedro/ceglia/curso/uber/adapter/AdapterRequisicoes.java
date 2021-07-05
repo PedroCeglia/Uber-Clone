@@ -53,14 +53,14 @@ public class AdapterRequisicoes extends RecyclerView.Adapter<AdapterRequisicoes.
         if (motorista.getLatitude() != null && !motorista.getLatitude().isEmpty()){
             if (motorista.getLongitude() != null && !motorista.getLongitude().isEmpty()) {
                 LatLng latLngMotorista = new LatLng(
-                        Double.parseDouble(passageiro.getLatitude()),
-                        Double.parseDouble(passageiro.getLongitude())
+                        Double.parseDouble(motorista.getLatitude()),
+                        Double.parseDouble(motorista.getLongitude())
                 );
 
-                float distancia = Local.calcularDistancia(latLngMotorista, latLngPassageiro)/ 1000;
+                float distancia = Local.calcularDistancia(latLngMotorista, latLngPassageiro);
                 String distanciaSt = Local.formatarDistancia(distancia);
 
-                holder.tvDistancia.setText( distanciaSt + "  Km-  aproximadamente");
+                holder.tvDistancia.setText( String.valueOf(distanciaSt) + "-  aproximadamente");
 
             }
         }

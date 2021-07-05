@@ -165,8 +165,9 @@ public class RequisicoesActivity extends AppCompatActivity {
                     localizacaoAtual = new LatLng(latitude, longitude);
                     // Atualiza o GeoFire
                     UsuarioFirebase.atualizarDadosLocalizacao(localizacaoAtual, RequisicoesActivity.this);
-                    locationManager.removeUpdates(locationListener);
                     adapter.notifyDataSetChanged();
+
+                    locationManager.removeUpdates(locationListener);
                     criandoToast();
                 }
             }
