@@ -18,6 +18,7 @@
         app:srcCompat="@drawable/logo" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -26,6 +27,7 @@
         android:layout_marginRight="24dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/bg_balao"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +45,14 @@
             android:text="Login"
             android:textColor="@color/cinza_dark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btInicialCadastrar"
@@ -56,6 +65,8 @@
             android:text="Cadastro"
             android:textColor="@color/cinza_dark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
+    private Button btLogin, btCadastro;
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +56,19 @@ public class MainActivity extends AppCompatActivity {
         auth = ConfiguracoesFirebase.getAuth();
         database = ConfiguracoesFirebase.getDatabaseReference();
 
-        Button btCadastro = findViewById(R.id.btInicialCadastrar);
-        Button btLogin = findViewById(R.id.btInicialLogar);
+        btCadastro = findViewById(R.id.btInicialCadastrar);
+        btLogin = findViewById(R.id.btInicialLogar);
+        progressBar = findViewById(R.id.progressBar);
 
         btLogin.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            escondendoWidgets();
             startActivity(i);
         });
 
         btCadastro.setOnClickListener(v ->{
             Intent i = new Intent(MainActivity.this, CadastroActivity.class);
+            escondendoWidgets();
             startActivity(i);
         });
     }
@@ -70,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             // Abrir tela principal
             String id = auth.getCurrentUser().getUid();
             verificandoNoFirebase(id);
+        } else {
+            exibindoWidgets();
         }
     }
 
@@ -125,4 +135,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void exibindoWidgets(){
+
+        btCadastro.setVisibility(View.VISIBLE);
+        btLogin.setVisibility(View.VISIBLE);
+
+        progressBar.setVisibility(View.GONE);
+
+    }
+    private void escondendoWidgets(){
+
+        btCadastro.setVisibility(View.GONE);
+        btLogin.setVisibility(View.GONE);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+    }
 }

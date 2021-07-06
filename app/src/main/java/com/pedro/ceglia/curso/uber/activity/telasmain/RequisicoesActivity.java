@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class RequisicoesActivity extends AppCompatActivity {
 
     // Widgets
     private TextView tvRequisicao;
+    private ProgressBar progressBar;
 
     // MAPS SDK FOR ANDROID
     private LocationManager locationManager;
@@ -90,12 +92,14 @@ public class RequisicoesActivity extends AppCompatActivity {
     }
 
     private void configuracoesIniciais(){
+        progressBar = findViewById(R.id.progressBar2);
         auth = ConfiguracoesFirebase.getAuth();
         database = ConfiguracoesFirebase.getDatabaseReference();
         requisicoesRef = database.child("requisicoes");
         usuarioLogado = UsuarioFirebase.getDadosUsuarioLogadoAuth();
         rv = findViewById(R.id.rvRequisicoes);
         tvRequisicao = findViewById(R.id.tvRequisicoes);
+
         listaDeRequisicoes = new ArrayList<>();
     }
     private void configurandoToolbar(){
@@ -125,7 +129,6 @@ public class RequisicoesActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getChildrenCount() > 0){
                     tvRequisicao.setVisibility(View.GONE);
-                    rv.setVisibility(View.VISIBLE);
                     for (DataSnapshot ds : snapshot.getChildren()){
                         listaDeRequisicoes.add(ds.getValue(Requisicao.class));
                     }
@@ -159,6 +162,7 @@ public class RequisicoesActivity extends AppCompatActivity {
                 double longitude = location.getLongitude();
 
                 if (!String.valueOf(latitude).isEmpty() && !String.valueOf(longitude).isEmpty()){
+
                     // Define a localizaçao do usuario
                     usuarioLogado.setLatitude(String.valueOf(latitude));
                     usuarioLogado.setLongitude(String.valueOf(longitude));
@@ -166,6 +170,8 @@ public class RequisicoesActivity extends AppCompatActivity {
                     // Atualiza o GeoFire
                     UsuarioFirebase.atualizarDadosLocalizacao(localizacaoAtual, RequisicoesActivity.this);
                     adapter.notifyDataSetChanged();
+                    rv.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
 
                     locationManager.removeUpdates(locationListener);
                     criandoToast();
