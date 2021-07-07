@@ -14,6 +14,7 @@ public class Requisicao implements Serializable {
     private Usuario passageiro;
     private Usuario motorista;
     private String status;
+    private String preco;
 
     public static final String STATUS_AGUARDANDO = "aguardando";
     public static final String STATUS_A_CAMINHO  = "acaminho";
@@ -82,6 +83,14 @@ public class Requisicao implements Serializable {
                 .child("motorista").setValue(motorista);
 
 
+    }
+
+    public String getPreco() {
+        return preco;
+    }
+
+    public void setPreco(String preco) {
+        this.preco = preco;
     }
 
     public Destino getDestino() {

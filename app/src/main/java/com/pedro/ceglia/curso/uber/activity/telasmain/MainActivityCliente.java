@@ -27,6 +27,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -83,8 +85,11 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
 
     // Widgets
     private EditText etLocalCliente, etLocalDestino;
-    private LinearLayout lLets;
-    private Button btMain;
+    private LinearLayout lLets; // Edits
+    private Button btMain, btChamarUber2;
+    private LinearLayout lLChamarUber, lLMain;
+    private TextView tvPrecoUberN, tvPrecoUberB;
+    private RadioButton rbUberBlack, rbUberNormal;
 
     // Models
     // Models
@@ -104,6 +109,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         configurandoToolbar();
@@ -115,6 +121,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
     protected void onStart() {
         super.onStart();
         verificaStatusRequisicao();
+
     }
 
     @Override
@@ -129,6 +136,13 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
         etLocalDestino = findViewById(R.id.etDestino);
         lLets = findViewById(R.id.linearLayoutEdits);
         btMain = findViewById(R.id.btChamarUber);
+        btChamarUber2 = findViewById(R.id.btChamarUber2);
+        tvPrecoUberN = findViewById(R.id.tvPrecoUberNormal);
+        tvPrecoUberB = findViewById(R.id.tvPrecoUberBlack);
+        lLChamarUber = findViewById(R.id.lLChamarUber2);
+        lLMain = findViewById(R.id.lLMain);
+        rbUberNormal = findViewById(R.id.rbUberNormal);
+        rbUberBlack = findViewById(R.id.rbUberBlack);
 
         auth = ConfiguracoesFirebase.getAuth();
         DatabaseReference database = ConfiguracoesFirebase.getDatabaseReference();
@@ -264,7 +278,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
                                             public void onClick(DialogInterface dialog, int which) {
 
                                                 // Salvar Requisição
-                                                salvandoRequisicao(destinoFinal, destino2);
+                                                escolhendoTipoDoUber(destinoFinal, destino2);
                                                 uberChamado = true;
                                                 Log.i("mensagem", "Confirmação 2");
 
@@ -306,6 +320,78 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
         });
     }
 
+    private void escolhendoTipoDoUber(Destino destino, Destino destinoInicial){
+
+        btMain.setVisibility(View.GONE);
+        lLChamarUber.setVisibility(View.VISIBLE);
+
+        LatLng latLngDestino = new LatLng(
+                destino.getLatitude(),
+                destino.getLongitude()
+        );
+
+        LatLng latLngDestinoInicial = new LatLng(
+                destinoInicial.getLatitude(),
+                destinoInicial.getLongitude()
+        );
+
+        // Calcular Preço
+        float distancia = Local.calcularDistancia(latLngDestinoInicial, latLngDestino);
+        float valorN = distancia * 4;
+        float valorB = distancia * 5;
+        String valorStB;
+        String valorStN;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        if (valorN<6){
+            valorStN = "6";
+        } else {
+            valorStN = decimalFormat.format(valorN);
+        }
+
+        if (valorB<10){
+            valorStB = "10";
+        } else {
+            valorStB = decimalFormat.format(valorN);
+        }
+
+        tvPrecoUberN.setText("Preço : R$" + valorStN);
+        tvPrecoUberB.setText("Preço : R$" + valorStB);
+
+
+
+        rbUberBlack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbUberNormal.setChecked(false);
+                rbUberBlack.setChecked(true);
+            }
+        });
+
+        rbUberNormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbUberBlack.setChecked(false);
+                rbUberNormal.setChecked(true);
+            }
+        });
+
+        btChamarUber2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rbUberNormal.isChecked()){
+                    salvandoRequisicao(destino, destinoInicial, valorStN);
+                    Log.i("TestandoRadioB", "Checado!");
+                } else {
+                    salvandoRequisicao(destino, destinoInicial, valorStB);
+                    Log.i("TestandoRadioB", "Não Checado!");
+                }
+                lLChamarUber.setVisibility(View.GONE);
+                btMain.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
     private Address recuperarEndereco(String endereco){
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -322,7 +408,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
 
 
     @SuppressLint("SetTextI18n")
-    private void salvandoRequisicao(Destino destino, Destino destinoInicial){
+    private void salvandoRequisicao(Destino destino, Destino destinoInicial, String preco){
 
         Requisicao requisicao = new Requisicao();
         requisicao.setDestino(destino);
@@ -335,6 +421,7 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
         LatLng destinoInicialLatLgn = new LatLng( destinoInicial.getLatitude(), destinoInicial.getLongitude());
         UsuarioFirebase.atualizarDadosLocalizacao(destinoInicialLatLgn, getApplicationContext());
         requisicao.setStatus(Requisicao.STATUS_AGUARDANDO);
+        requisicao.setPreco(preco);
         requisicao.salvar();
 
         lLets.setVisibility(View.GONE);

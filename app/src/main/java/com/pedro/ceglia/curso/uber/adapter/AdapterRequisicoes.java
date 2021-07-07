@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.maps.model.LatLng;
 import com.pedro.ceglia.curso.uber.R;
 import com.pedro.ceglia.curso.uber.helper.Local;
+import com.pedro.ceglia.curso.uber.model.Destino;
 import com.pedro.ceglia.curso.uber.model.Requisicao;
 import com.pedro.ceglia.curso.uber.model.Usuario;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AdapterRequisicoes extends RecyclerView.Adapter<AdapterRequisicoes.MyViewHolderRequisicoes> {
@@ -42,12 +44,18 @@ public class AdapterRequisicoes extends RecyclerView.Adapter<AdapterRequisicoes.
     public void onBindViewHolder(@NonNull MyViewHolderRequisicoes holder, int position) {
         Requisicao rec = listaDeRequisicao.get(position);
         Usuario passageiro = rec.getPassageiro();
+        Destino destino = rec.getDestino();
 
         holder.tvNomePassageiro.setText(passageiro.getNome());
 
         LatLng latLngPassageiro = new LatLng(
                 Double.parseDouble(passageiro.getLatitude()),
                 Double.parseDouble(passageiro.getLongitude())
+        );
+
+        LatLng latLngDestino = new LatLng(
+               destino.getLatitude(),
+                destino.getLongitude()
         );
 
         if (motorista.getLatitude() != null && !motorista.getLatitude().isEmpty()){
@@ -64,6 +72,8 @@ public class AdapterRequisicoes extends RecyclerView.Adapter<AdapterRequisicoes.
 
             }
         }
+
+        holder.tvPreco.setText("R$"+ rec.getPreco());
     }
 
     @Override
@@ -75,12 +85,14 @@ public class AdapterRequisicoes extends RecyclerView.Adapter<AdapterRequisicoes.
 
         private final TextView tvNomePassageiro;
         private final TextView tvDistancia;
+        private final TextView tvPreco;
 
         public MyViewHolderRequisicoes(@NonNull View itemView) {
             super(itemView);
 
             tvDistancia = itemView.findViewById(R.id.tvDistancia);
             tvNomePassageiro = itemView.findViewById(R.id.tvNomeUsuario);
+            tvPreco = itemView.findViewById(R.id.tvAdapterPrecoCorrida);
         }
     }
 }
