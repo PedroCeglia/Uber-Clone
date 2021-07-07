@@ -516,16 +516,10 @@ public class MainActivityCliente extends AppCompatActivity implements OnMapReady
                     btMain.setText("Viagem Finalizada");
                     adicionandoMarcadorDoDestino(localizacaoDestino);
 
-                    // Calcular Preço
-                    float distancia = Local.calcularDistancia(localizacaoPassageiro, localizacaoDestino);
-                    float valor = distancia * 4;
-                    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-                    String valorSt = decimalFormat.format(valor);
-
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Encerrado Viagem");
-                    builder.setMessage("Corrida Finalizada - R$" + valorSt);
+                    builder.setMessage("Corrida Finalizada - R$" + requisicao.getPreco());
                     builder.setCancelable(false);
                     builder.setNegativeButton("Encerrar viagem", (dialog, which) -> {
                         requisicao.setStatus(Requisicao.STATUS_ENCERRADA);

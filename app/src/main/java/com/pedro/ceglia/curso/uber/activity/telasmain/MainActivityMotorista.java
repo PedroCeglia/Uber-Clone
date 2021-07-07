@@ -333,16 +333,12 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
         adicionandoMarcadorDoDestino(localizacaoDestino, "Destino");
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(localizacaoDestino, 15));
 
-        // Calcular Preço
-        float distancia = Local.calcularDistancia(localizacaoPassageiro, localizacaoDestino);
-        float valor = distancia * 4;
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        String valorSt = decimalFormat.format(valor);
-        btAcessarCorrida.setText("Corrida Finalizada - R$" + valorSt );
+
+        btAcessarCorrida.setText("Corrida Finalizada - R$" + requisicao.getPreco() );
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Encerrado Viagem");
-        builder.setMessage("Corrida Finalizada - R$" + valorSt);
+        builder.setMessage("Corrida Finalizada - R$" + requisicao.getPreco());
         builder.setCancelable(false);
         builder.setNegativeButton("Encerrar viagem", new DialogInterface.OnClickListener() {
             @Override
