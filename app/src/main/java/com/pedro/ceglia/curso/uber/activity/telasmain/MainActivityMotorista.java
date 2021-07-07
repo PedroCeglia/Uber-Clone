@@ -371,7 +371,7 @@ public class MainActivityMotorista extends AppCompatActivity implements OnMapRea
                         .strokeColor(Color.argb(190,255,152,0))
         );
 
-        //
+        // ff
         GeoQuery geoQuery = geoFire.queryAtLocation(
                 new GeoLocation(localDestino.latitude, localDestino.longitude),
                 0.05 //  em km
